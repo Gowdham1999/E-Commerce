@@ -1,0 +1,78 @@
+<!-- MAIN CONTENT-->
+<div class="main-content">
+   <div class="section-content section-content-p30">
+      <div class="container-fluid">
+         <div class="row">
+
+            <div class="col-md-3" *ngFor="let data of productsList.products">
+               <div class="product-box">
+                  <a routerLink="/home/products/{{data.id}}">
+                     <img src="{{data.imageUrl}}" class="img-responsive">
+                  </a>
+                  <a class="book-title" routerLink="/home/products/{{data.id}}">
+                     <h1>{{data.name}}</h1>
+                  </a>
+                  <!-- <h2>{{data.name}}</h2> -->
+                  <div class="price">{{data.unitPrice | currency: 'USD'}}</div>
+
+                  <button class="btn btn-dark btn-sm mt-2" (click)="addToCart(data)">Add to cart</button>
+
+               </div>
+            </div>
+
+            <div class="alert alert-warning col-md-12" role="alert" *ngIf="productsList.products?.length == 0">
+               No products found!!!
+            </div>
+
+         </div>
+
+         <div class="footer-pagination" *ngIf="productsList.products?.length != 0 && !isCategorySelected">
+
+            <div class="row">
+
+               <div class="col-md-6"></div>
+
+               <div class="col-md-6">
+
+                  <div class="row">
+
+                     <div class="col-md-3"></div>
+
+                     <div class="col-md-6" style="padding-left: 30%; display: flex; justify-content:end">
+
+                        <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements"
+                           [maxSize]="4" [boundaryLinks]="true" (pageChange)="listProductsPagination()">
+                        </ngb-pagination>
+
+                     </div>
+
+
+                     <div class="col-md-3 mt-2" style="text-align:right">
+
+                        <span class="mr-2">Page Size </span>
+
+                        <select #pageSizeSelected (change)="onSelectPageSize(pageSizeSelected.value)">
+
+                           <option selected="true">12</option>
+                           <option>24</option>
+                           <option>36</option>
+                           <option>50</option>
+
+                        </select>
+
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+            </div>
+
+         </div>
+
+      </div>
+
+   </div>
+
+</div>

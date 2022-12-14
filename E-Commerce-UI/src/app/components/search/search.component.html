@@ -1,0 +1,9 @@
+<div class="form-header">
+
+   <input [(ngModel)]="keyword" name="keyword" class="au-input au-input-xl" type="text" (keyup.enter)="onSearchProducts()" placeholder="Search..." />
+
+   <button class="au-btn-submit" (click)="onSearchProducts()">
+      Search
+   </button>
+
+</div>
