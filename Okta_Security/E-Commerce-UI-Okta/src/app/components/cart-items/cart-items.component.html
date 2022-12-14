@@ -1,0 +1,13 @@
+<div class="cart-area d-n">
+
+   <a style="cursor:pointer">
+
+      <div class="total" routerLink="/home/products/cart">$ {{totalPrice}} <span> {{totalQuantity}}</span> </div>
+
+      <i style="margin-left: 20px" class="fa fa-shopping-cart" aria-hidden="true" routerLink="/home/products/cart"></i>
+
+      <i style="margin-left: 20px" class="fa fa-sign-out" aria-hidden="true" (click)="logOut()"> </i>
+
+   </a>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="login-status-header">
+
+    <button *ngIf="isAuthenticated" routerLink="/home/orders/order-history" style="height: 45px;"
+        class="au-btn-submit">Orders</button>
+
+    &nbsp;
+    &nbsp;
+
+    <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
+        <h4 style="color: white; margin-top: 10px;">Hi {{ userFullName }}!</h4>
+    </div>
+
+    <button *ngIf="!isAuthenticated" routerLink="/login" style="height: 45px;" class="au-btn-submit">Login</button>
+
+
+    <!-- <button *ngIf="isAuthenticated" (click)="logOut()" class="au-btn-submit">Logout</button> -->
+    <!-- 
+    <i *ngIf="isAuthenticated" style="margin-left: 20px" style="color:white;margin-top: 13px;cursor: pointer;"
+        class="fa fa-sign-out" aria-hidden="true" (click)="logOut()"></i> -->
+
+</div>

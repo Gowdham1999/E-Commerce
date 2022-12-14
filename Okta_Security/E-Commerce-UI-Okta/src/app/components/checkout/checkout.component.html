@@ -1,0 +1,401 @@
+<div class="main-content page-m">
+
+   <div class="section-content section-content-p30">
+
+      <div class="container-fluid">
+
+         <form [formGroup]="checkoutForm" (ngSubmit)="onPlacingOrder()">
+
+            <!-- Customer Details Form -->
+
+            <h4 style="margin-bottom:10px">Customer Details</h4>
+
+            <div class="card">
+
+               <div class="card-body">
+
+                  <div class="container">
+
+                     <div class="form-group" formGroupName="customerDetails">
+
+                        <div class="row mb-3">
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">First
+                              Name</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="firstName">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">
+                                    First Name is required!
+                                 </div>
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="firstName?.errors?.['minlength']">
+                                    Minimum length is 4 characters!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                              style="text-align:right">Last
+                              Name</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="lastName">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']">
+                                    Last Name is required!
+                                 </div>
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="lastName?.errors?.['minlength']">
+                                    Minimum length is 4 characters!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="email">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="email?.errors?.['required']">
+                                    Email is required!
+                                 </div>
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="email?.errors?.['pattern']">
+                                    Not a valid email!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                              style="text-align:right">Mobile
+                              Number</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" [minLength]="10" [maxlength]="10" class="form-control form-control-md"
+                                 id="colFormLabelSm" formControlName="mobileNumber">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="mobileNumber?.invalid && (mobileNumber?.dirty || mobileNumber?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="mobileNumber?.errors?.['required']">
+                                    Mobile Number is required!
+                                 </div>
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="mobileNumber?.errors?.['pattern']">
+                                    Not a valid Mobile Number!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+            </div>
+
+            <br>
+
+            <!-- Shipping Address Details Form -->
+
+            <h4 style="margin-bottom:10px">Shipping Details</h4>
+
+            <div class="card">
+
+               <div class="card-body">
+
+                  <div class="container">
+
+                     <div class="form-group" formGroupName="shippingDetails">
+
+                        <div class="row mb-3">
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Country
+                           </label>
+                           <div class="col-sm-4 input-space" style="margin-bottom: 0;">
+                              <select class="form-select form-select-md mb-3" formControlName="country"
+                                 (change)="displayCorrectStates()">
+                                 <!-- <option selected>Open this select menu</option> -->
+                                 <option></option>
+                                 <option *ngFor="let country of countries">{{country.name}}</option>
+                              </select>
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="country?.invalid && (country?.dirty || country?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="country?.errors?.['required']">
+                                    Country is required!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                              style="text-align:right">State
+                           </label>
+                           <div class="col-sm-4 input-space" style="margin-bottom: 0;">
+                              <select class="form-select form-select-md mb-3" formControlName="state">
+                                 <option></option>
+                                 <option *ngFor="let state of states">{{state.name}}</option>
+                              </select>
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="state?.invalid && (state?.dirty || state?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="state?.errors?.['required']">
+                                    State is required!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">City</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="city">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="city?.invalid && (city?.dirty || city?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="city?.errors?.['required'] || city?.errors?.['notOnlyWhitespace']">
+                                    City is required!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                              style="text-align:right">Street</label>
+                           <div class="col-sm-4 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="street">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="street?.invalid && (street?.dirty || street?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="street?.errors?.['required'] || street?.errors?.['notOnlyWhitespace']">
+                                    Street is required!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Zip
+                              Code</label>
+
+                           <div class="col-sm-3 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 [maxlength]="6" [minlength]="6" formControlName="zipCode">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="zipCode?.invalid && (zipCode?.dirty || zipCode?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="zipCode?.errors?.['required'] || zipCode?.errors?.['notOnlyWhitespace']">
+                                    Zip Code is required!
+                                 </div>
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="zipCode?.errors?.['pattern'] || zipCode?.errors?.['maxlength'] || zipCode?.errors?.['minlength']">
+                                    Not a valid zip code!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                              style="text-align:right">Description</label>
+
+                           <div class="col-sm-5 input-space">
+                              <input type="text" class="form-control form-control-md" id="colFormLabelSm"
+                                 formControlName="description">
+
+                              <div class="checkout-alert checkout-alert-danger mt-1" style="margin: 0px"
+                                 *ngIf="description?.invalid && (description?.dirty || description?.touched)">
+
+                                 <div style="text-align:center; padding:0; font-size:small"
+                                    *ngIf="description?.errors?.['required'] || description?.errors?.['notOnlyWhitespace']">
+                                    Description is required!
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+            </div>
+
+            <br>
+
+            <!-- Card Details -->
+
+            <h4 style="margin-bottom:10px">Card Details</h4>
+
+            <!-- Stripe Card elements Below -->
+
+            <div class="form-area" formGroupName="creditCard">
+
+               <div id="card-element">
+
+               </div>
+
+               <div class="displayError.textContent!=='': 'alert alert-danger mt-1'" id="card-errors">
+
+               </div>
+
+            </div>
+
+
+            <!-- Stripe Card elements End -->
+
+            <br>
+
+            <div class="row">
+
+               <div class="col-md-4"></div>
+               <div class="col-md-4"></div>
+
+               <div class="col-md-4">
+
+                  <h5>Review Your Order</h5>
+                  <div class="card">
+
+                     <div class="card-body">
+
+                        <div class="row">
+
+                           <div class="col-sm-6">
+                              <p><strong>Shipping:</strong></p>
+                           </div>
+                           <div class="col-sm-6"> <strong>Free</strong></div>
+
+                        </div>
+
+                        <div class="row">
+
+                           <div class="col-sm-6">
+                              <p><strong>Total Quantity:</strong></p>
+                           </div>
+                           <div class="col-sm-6">
+                              <p> <strong>{{totalQuantity}}</strong></p>
+                           </div>
+
+                        </div>
+
+                        <div class="row">
+
+                           <div class="col-sm-6">
+                              <p style="margin-bottom:0"><strong>Total Price:</strong> </p>
+                           </div>
+                           <div class="col-sm-6">
+                              <p><strong>{{totalPrice | currency: 'USD'}}</strong> </p>
+                           </div>
+
+                        </div>
+
+                        <div class="row">
+
+                           <div class="col-sm-6"> </div>
+                           <div class="col-sm-6">
+                              <button class="btn btn-success" type="submit"
+                                 [disabled]="checkoutForm.invalid || submitButtonDisabled">Place
+                                 Order</button>
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+            </div>
+
+         </form>
+
+         <!-- <br> -->
+
+      </div>
+
+   </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+
+            <h5>Order placed successfully</h5>
+
+         </div>
+         <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="resetForm()">Wohooo!</button>
+         </div>
+      </div>
+   </div>
+</div>

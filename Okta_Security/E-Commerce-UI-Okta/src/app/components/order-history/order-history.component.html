@@ -1,0 +1,50 @@
+<div class="main-content">
+
+   <div class="section-content section-content-p30">
+
+      <div class="container-fluid">
+
+         <div class="alert alert-warning" role="alert" *ngIf="orderDetails.length ==  null">
+            No Orders found!
+         </div>
+
+         <div *ngIf="orderDetails.length > 0">
+
+            <h2>Your Orders</h2>
+
+            <table class="table table-bordered">
+
+               <tr class="table-dark">
+                  <th width="30%" class="table-dark">Order ID</th>
+                  <th width="20%" class="table-dark">Quantity</th>
+                  <th width="20%" class="table-dark">Price</th>
+                  <th width="30%" class="table-dark">Order Date</th>
+               </tr>
+
+               <tr *ngFor="let order of orderDetails">
+
+                  <td style="margin:10px 20px">
+                     <p><strong>{{order.orderTrackingNumber}}</strong></p>
+                  </td>
+
+                  <td>
+                     <p><strong>{{order.totalQuantity}}</strong></p>
+                  </td>
+
+                  <td>
+                     <p><strong>{{order.totalPrice | currency : 'USD'}}</strong></p>
+                  </td>
+
+                  <td>
+                     <p><strong>{{order.dateCreated | date: 'medium'}}</strong></p>
+                  </td>
+
+               </tr>
+
+            </table>
+
+         </div>
+      </div>
+   </div>
+
+</div>
